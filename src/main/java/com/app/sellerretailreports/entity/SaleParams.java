@@ -1,10 +1,9 @@
 package com.app.sellerretailreports.entity;
 
+import java.math.BigDecimal;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
-
-import java.math.BigDecimal;
 
 @Data
 public class SaleParams {

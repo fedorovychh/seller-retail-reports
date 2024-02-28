@@ -1,9 +1,7 @@
 package com.app.sellerretailreports.entity;
 
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-
 import java.time.LocalDate;
+import lombok.Data;
 
 @Data
 public class SalesAndTrafficByDate {
