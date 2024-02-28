@@ -1,4 +1,4 @@
-package com.app.sellerretailreports.repository;
+package com.app.sellerretailreports.repository.report;
 
 import com.app.sellerretailreports.entity.report.SalesAndTrafficReport;
 import org.springframework.data.mongodb.repository.MongoRepository;
