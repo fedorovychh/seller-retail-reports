@@ -20,7 +20,7 @@ public class ReportController {
 
     @GetMapping(value = "/all")
     @Operation(summary = "Get reports by all dates")
-    public List<ReportResponseDto> getAllReports() {
+    public List<ReportResponseDto> getAll() {
         return reportService.findAll();
     }
 }
