@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class SalesAndTrafficReport {
     private ReportSpecification reportSpecification;
-    private SaleAndTrafficByDate saleAndTrafficByDate;
+    private SalesAndTrafficByDate salesAndTrafficByDate;
     private SalesAndTrafficByAsin salesAndTrafficByAsin;
 }
