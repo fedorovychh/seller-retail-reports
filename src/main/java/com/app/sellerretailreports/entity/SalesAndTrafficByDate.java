@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 @Data
 public class SalesAndTrafficByDate {
-    @Id
-    private Long id;
     private LocalDate date;
     private SalesByDate salesByDate;
     private TrafficByDate trafficByDate;
