@@ -1,4 +1,4 @@
-package com.app.sellerretailreports.entity;
+package com.app.sellerretailreports.entity.report;
 
 import lombok.Data;
 

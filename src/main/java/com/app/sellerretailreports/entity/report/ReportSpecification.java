@@ -1,4 +1,4 @@
-package com.app.sellerretailreports.entity;
+package com.app.sellerretailreports.entity.report;
 
 import java.time.LocalDate;
 import java.util.List;

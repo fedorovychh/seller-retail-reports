@@ -1,4 +1,4 @@
-package com.app.sellerretailreports.entity;
+package com.app.sellerretailreports.entity.report;
 
 import java.math.BigDecimal;
 import lombok.Data;

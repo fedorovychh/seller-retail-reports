@@ -1,4 +1,4 @@
-package com.app.sellerretailreports.entity;
+package com.app.sellerretailreports.entity.report;
 
 import java.util.List;
 import lombok.Data;
