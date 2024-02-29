@@ -1,6 +1,6 @@
 package com.app.sellerretailreports.controller;
 
-import com.app.sellerretailreports.service.updater.ReportUpdaterService;
+import com.app.sellerretailreports.service.initializer.ReportInitializerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Tag(name = "Health Check", description = "Endpoint to check API")
 public class HealthController {
-    private final ReportUpdaterService reportUpdaterService;
+    private final ReportInitializerService reportUpdaterService;
 
     @GetMapping("/health")
     @Operation(summary = "Check Health")
@@ -21,6 +21,6 @@ public class HealthController {
 
     @GetMapping("/update")
     public void updateDb() {
-        reportUpdaterService.updateDb();
+        reportUpdaterService.update();
     }
 }

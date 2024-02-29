@@ -1,4 +1,4 @@
-package com.app.sellerretailreports.service.updater;
+package com.app.sellerretailreports.service.file;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,8 @@ public class FileReaderService {
             BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(fileName));
 
             try {
-                String str = bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+                String str = bufferedReader.lines()
+                        .collect(Collectors.joining(System.lineSeparator()));
                 bufferedReader.close();
                 return str;
             } catch (Throwable throwable) {
