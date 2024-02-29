@@ -9,6 +9,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,11 @@ public class ReportInitializerServiceImpl implements ReportInitializerService {
     @Override
     @PostConstruct
     public void initialize() {
+        Path path = Paths.get(UPDATE_JSON_PATH);
+        if (Files.exists(path)) {
+            update();
+            return;
+        }
         SalesAndTrafficReport report = getReport(INITIALIZE_JSON_PATH);
         SalesAndTrafficReport saved = repository.save(report);
         ObjectMapper objectMapper = new ObjectMapper();
