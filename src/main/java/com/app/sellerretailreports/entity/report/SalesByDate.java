@@ -8,7 +8,7 @@ public class SalesByDate {
     private OrderedProductSales orderedProductSales;
     private OrderedProductSalesB2B orderedProductSalesB2B;
     private int unitsOrdered;
-    private int getUnitsOrderedB2B;
+    private int unitsOrderedB2B;
     private int totalOrderItems;
     private int totalOrderItemsB2B;
     private AverageSalesPerOrderItem averageSalesPerOrderItem;
@@ -20,6 +20,7 @@ public class SalesByDate {
     private int unitsRefunded;
     private BigDecimal refundRate;
     private int claimsGranted;
+    private ClaimsAmount claimsAmount;
     private ShippedProductSales shippedProductSales;
     private int unitsShipped;
     private int ordersShipped;
