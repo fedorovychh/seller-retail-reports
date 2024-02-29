@@ -10,11 +10,12 @@ import jakarta.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ReportUpdaterServiceImpl implements ReportInitializerService {
+public class ReportInitializerServiceImpl implements ReportInitializerService {
     private static final String INITIALIZE_JSON_PATH =
             "src\\main\\resources\\db\\json\\test_report.json";
     private static final String UPDATE_JSON_PATH =
@@ -36,6 +37,7 @@ public class ReportUpdaterServiceImpl implements ReportInitializerService {
     }
 
     @Override
+    @Scheduled(fixedRate = 900_000) /* updates data in db every 15 minutes */
     public void update() {
         SalesAndTrafficReport report = getReport("src\\main\\resources\\db\\json\\db_report.json");
         repository.save(report);

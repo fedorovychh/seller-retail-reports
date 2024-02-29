@@ -1,7 +1,6 @@
 package com.app.sellerretailreports.mapper;
 
 import com.app.sellerretailreports.config.MapperConfig;
-import com.app.sellerretailreports.dto.report.ReportRequestDto;
 import com.app.sellerretailreports.dto.report.ReportResponseDto;
 import com.app.sellerretailreports.entity.report.SalesAndTrafficReport;
 import org.mapstruct.Mapper;
@@ -16,6 +15,4 @@ import org.mapstruct.Mapper;
 )
 public interface ReportMapper {
     ReportResponseDto toDto(SalesAndTrafficReport salesAndTrafficReport);
-
-    SalesAndTrafficReport toEntity(ReportRequestDto requestDto);
 }
