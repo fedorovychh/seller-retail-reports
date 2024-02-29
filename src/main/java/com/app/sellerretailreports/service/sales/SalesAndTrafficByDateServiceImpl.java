@@ -10,7 +10,9 @@ import com.app.sellerretailreports.repository.report.ReportRepository;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,7 +23,7 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     private final SalesAndTrafficByAsinMapper salesAndTrafficByAsinMapper;
 
     @Override
-    @Cacheable("salesAndTrafficByDateDto")
+    @Cacheable("salesAndTrafficByDatesBetween")
     public List<SalesAndTrafficByDateDto> findAllBetweenDates(LocalDate start, LocalDate end) {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         return salesAndTrafficReport.getSalesAndTrafficByDate().stream()
@@ -32,6 +34,7 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     }
 
     @Override
+    @Cacheable("salesAndTrafficBySpecifiedDate")
     public SalesAndTrafficByDateDto findBySpecifiedDate(LocalDate localDate) {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         SalesAndTrafficByDate salesAndTrafficByDate = salesAndTrafficReport
@@ -45,7 +48,7 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     }
 
     @Override
-    @Cacheable("salesAndTrafficByAsinDto")
+    @Cacheable("salesAndTrafficBySpecifiedAsins")
     public List<SalesAndTrafficByAsinDto> findAllBySpecifiedAsins(List<String> asins) {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         return salesAndTrafficReport.getSalesAndTrafficByAsin().stream()
@@ -55,7 +58,7 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     }
 
     @Override
-    @Cacheable("salesAndTrafficByAsinDto")
+    @Cacheable("salesAndTrafficByAsins")
     public List<SalesAndTrafficByAsinDto> findAllByAsins() {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         return salesAndTrafficReport.getSalesAndTrafficByAsin().stream()
@@ -64,10 +67,25 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     }
 
     @Override
+    @Cacheable("salesAndTrafficByDates")
     public List<SalesAndTrafficByDateDto> findAllByDates() {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         return salesAndTrafficReport.getSalesAndTrafficByDate().stream()
                 .map(salesAndTrafficByDateMapper::toDto)
                 .toList();
+    }
+
+    @CacheEvict(
+            value = {
+                    "salesAndTrafficByDatesBetween",
+                    "salesAndTrafficBySpecifiedDate",
+                    "salesAndTrafficBySpecifiedAsins",
+                    "salesAndTrafficByAsins",
+                    "salesAndTrafficByDates"
+            },
+            allEntries = true
+    )
+    @Scheduled(fixedRateString = "${caching.spring.TTL}")
+    public void emptyHotelsCache() {
     }
 }
