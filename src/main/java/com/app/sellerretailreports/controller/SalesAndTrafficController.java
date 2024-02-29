@@ -31,6 +31,15 @@ public class SalesAndTrafficController {
         return salesAndTrafficByDateService.findAllBetweenDates(start, end);
     }
 
+    @GetMapping(value = "/by-date")
+    @Operation(summary = "Get statistics by specified date.")
+    public SalesAndTrafficByDateDto getBySpecifiedDate(
+            @RequestParam("date")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+    ) {
+        return salesAndTrafficByDateService.findBySpecifiedDate(date);
+    }
+
     @GetMapping(value = "/all-by-specified-asins")
     @Operation(summary = "Get statistics by all specified asins.")
     public List<SalesAndTrafficByAsinDto> getAllBySpecifiedAsins(

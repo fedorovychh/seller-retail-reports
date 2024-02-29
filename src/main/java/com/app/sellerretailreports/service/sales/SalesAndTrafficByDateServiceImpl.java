@@ -2,6 +2,7 @@ package com.app.sellerretailreports.service.sales;
 
 import com.app.sellerretailreports.dto.report.SalesAndTrafficByAsinDto;
 import com.app.sellerretailreports.dto.report.SalesAndTrafficByDateDto;
+import com.app.sellerretailreports.entity.report.SalesAndTrafficByDate;
 import com.app.sellerretailreports.entity.report.SalesAndTrafficReport;
 import com.app.sellerretailreports.mapper.SalesAndTrafficByAsinMapper;
 import com.app.sellerretailreports.mapper.SalesAndTrafficByDateMapper;
@@ -9,6 +10,7 @@ import com.app.sellerretailreports.repository.report.ReportRepository;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +21,7 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     private final SalesAndTrafficByAsinMapper salesAndTrafficByAsinMapper;
 
     @Override
+    @Cacheable("salesAndTrafficByDateDto")
     public List<SalesAndTrafficByDateDto> findAllBetweenDates(LocalDate start, LocalDate end) {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         return salesAndTrafficReport.getSalesAndTrafficByDate().stream()
@@ -29,6 +32,20 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     }
 
     @Override
+    public SalesAndTrafficByDateDto findBySpecifiedDate(LocalDate localDate) {
+        SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
+        SalesAndTrafficByDate salesAndTrafficByDate = salesAndTrafficReport
+                .getSalesAndTrafficByDate().stream()
+                .filter(s -> s.getDate().isEqual(localDate))
+                .findFirst()
+                .orElseThrow(
+                        () -> new RuntimeException("Can't find sales in traffic by " + localDate)
+                );
+        return salesAndTrafficByDateMapper.toDto(salesAndTrafficByDate);
+    }
+
+    @Override
+    @Cacheable("salesAndTrafficByAsinDto")
     public List<SalesAndTrafficByAsinDto> findAllBySpecifiedAsins(List<String> asins) {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         return salesAndTrafficReport.getSalesAndTrafficByAsin().stream()
@@ -38,6 +55,7 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     }
 
     @Override
+    @Cacheable("salesAndTrafficByAsinDto")
     public List<SalesAndTrafficByAsinDto> findAllByAsins() {
         SalesAndTrafficReport salesAndTrafficReport = repository.findAll().get(0);
         return salesAndTrafficReport.getSalesAndTrafficByAsin().stream()

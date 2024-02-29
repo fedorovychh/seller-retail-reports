@@ -8,6 +8,8 @@ import java.util.List;
 public interface SalesAndTrafficByDateService {
     List<SalesAndTrafficByDateDto> findAllBetweenDates(LocalDate start, LocalDate end);
 
+    SalesAndTrafficByDateDto findBySpecifiedDate(LocalDate localDate);
+
     List<SalesAndTrafficByAsinDto> findAllByAsins();
 
     List<SalesAndTrafficByDateDto> findAllByDates();
