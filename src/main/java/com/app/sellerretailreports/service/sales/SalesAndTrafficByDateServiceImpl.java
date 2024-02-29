@@ -18,6 +18,16 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateService {
+    private static final String SALES_AND_TRAFFIC_BY_DATES_BETWEEN =
+            "salesAndTrafficByDatesBetween";
+    private static final String SALES_AND_TRAFFIC_BY_SPECIFIED_DATE =
+            "salesAndTrafficBySpecifiedDate";
+    private static final String SALES_AND_TRAFFIC_BY_SPECIFIED_ASINS =
+            "salesAndTrafficBySpecifiedAsins";
+    private static final String SALES_AND_TRAFFIC_BY_ASINS =
+            "salesAndTrafficByAsins";
+    private static final String SALES_AND_TRAFFIC_BY_DATES =
+            "salesAndTrafficByDates";
     private static final int FIRST_ELEMENT_INDEX = 0;
     private final ReportRepository repository;
     private final SalesAndTrafficByDateMapper salesAndTrafficByDateMapper;
@@ -78,16 +88,16 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
 
     @CacheEvict(
             value = {
-                    "salesAndTrafficByDatesBetween",
-                    "salesAndTrafficBySpecifiedDate",
-                    "salesAndTrafficBySpecifiedAsins",
-                    "salesAndTrafficByAsins",
-                    "salesAndTrafficByDates"
+                    SALES_AND_TRAFFIC_BY_DATES_BETWEEN,
+                    SALES_AND_TRAFFIC_BY_SPECIFIED_DATE,
+                    SALES_AND_TRAFFIC_BY_SPECIFIED_ASINS,
+                    SALES_AND_TRAFFIC_BY_ASINS,
+                    SALES_AND_TRAFFIC_BY_DATES
             },
             allEntries = true
     )
     @Scheduled(fixedRateString = "${caching.spring.TTL}")
-    public void emptyHotelsCache() {
+    public void emptyCache() {
     }
 
     private SalesAndTrafficReport findReport() {

@@ -7,18 +7,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/report")
 @Tag(name = "Report management",
-        description = "Endpoints for managing reports.")
+        description = "Endpoints for getting reports.")
 public class ReportController {
     private final ReportService reportService;
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/reports")
     @Operation(summary = "Get reports by all dates")
     public List<ReportResponseDto> getAll() {
         return reportService.findAll();
