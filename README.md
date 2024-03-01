@@ -43,12 +43,14 @@ Clone the project
 git clone https://github.com/fedorovychh/seller-retail-reports.git
 ```
 
-Open project in Inteliji IDEA
+Open project in IntelliJ IDEA
 
 Load Maven dependencies
 
-Define properties in application.properties file to match your need
+Define properties in the application.properties file to match your needs
 
-Open address http://localhost:8081/swagger-ui/index.html in your browser
+Start the project
 
-Success!!! You can start the project.
+Open the address http://localhost:8081/swagger-ui/index.html in your browser
+
+Success!!!
